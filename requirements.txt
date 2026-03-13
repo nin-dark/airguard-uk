@@ -4,7 +4,8 @@ scikit-learn
 xgboost
 shap
 imbalanced-learn
-streamlit
+streamlit>=1.32.0
+altair>=5.0.0
 folium
 streamlit-folium
 plotly
