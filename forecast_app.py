@@ -279,11 +279,11 @@ if run_btn:
         steps = run_multi_step_forecast(hist_df, selected_city, steps=2, step_hours=6)
 
         st.session_state.city_predictions[selected_city] = {
-            'class':       steps[0]['class'],   # t+6h (primary, used for map colour)
+            'class':       steps[0]['class'],   
             'proba':       steps[0]['proba'],
             'last_dt':     last_dt,
             'forecast_dt': steps[0]['forecast_dt'],
-            'steps':       steps,               # full 12h timeline
+            'steps':       steps,               
         }
         st.session_state.city_history[selected_city] = hist_df
 
@@ -373,7 +373,7 @@ with col_detail:
         st.markdown(
             f'<div style="background:{band["colour"]};color:white;padding:16px;'
             f'border-radius:10px;text-align:center;margin-bottom:16px">'
-            f'<div style="font-size:13px;opacity:0.9">{city_name} — 6h Forecast</div>'
+            f'<div style="font-size:13px;opacity:0.9">{city_name} — 12h Forecast</div>'
             f'<div style="font-size:36px;font-weight:bold">{band["label"]}</div>'
             f'<div style="font-size:13px;opacity:0.9">'
             f'Confidence: {max(proba)*100:.1f}%</div>'
