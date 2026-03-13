@@ -222,7 +222,7 @@ def run_multi_step_forecast(hist_df, city_id, steps=2, step_hours=6):
 # ─────────────────────────────────────────────────────────────
 
 st.title("🌬️ AirGuard UK")
-st.markdown("**6-Hour Air Quality Forecast & Health Alert System**  |  SDG 11: Sustainable Cities")
+st.markdown("**12-Hour Air Quality Forecast & Health Alert System**  |  SDG 11: Sustainable Cities")
 st.markdown("---")
 
 
@@ -296,7 +296,7 @@ col_map, col_detail = st.columns([1.4, 1])
 
 # ── MAP ──────────────────────────────────────────────────────
 with col_map:
-    st.subheader("🗺️ UK Cities — 6h DAQI Forecast")
+    st.subheader("🗺️ UK Cities — 12h DAQI Forecast")
 
     m = folium.Map(location=[54.0, -2.5], zoom_start=6, tiles='CartoDB positron')
 
