@@ -88,7 +88,7 @@ def fetch_last_24h(city_id):
     info = CITIES[city_id]
     now  = datetime.utcnow()
     start = (now - timedelta(hours=25)).strftime('%Y-%m-%dT%H:00')
-    end   = now.strftime('%Y-%m-%dT%H:00')
+    end   = (now + timedelta(hours=12)).strftime('%Y-%m-%dT%H:00')
 
     aq_url = (
         "https://air-quality-api.open-meteo.com/v1/air-quality"
@@ -177,6 +177,45 @@ def build_forecast_features(df, city_id):
     X = row[FEATURES].fillna(TRAIN_MEDIAN)
     return X, dt
 
+def run_multi_step_forecast(hist_df, city_id, steps=2, step_hours=6):
+    """
+    Iteratively predict step_hours ahead, `steps` times.
+    Returns list of dicts: {forecast_dt, class, proba}
+    """
+    results = []
+    df = hist_df.copy()
+
+    for step in range(steps):
+        X, last_dt = build_forecast_features(df, city_id)
+        pred_class = int(model.predict(X)[0])
+        pred_proba = model.predict_proba(X)[0]
+        forecast_dt = last_dt + timedelta(hours=step_hours)
+
+        results.append({
+            'step':        step + 1,
+            'forecast_dt': forecast_dt,
+            'class':       pred_class,
+            'proba':       pred_proba,
+        })
+
+        # Build a synthetic next row using last known values + future weather
+        last_row = df.iloc[-1].copy()
+        next_row = last_row.copy()
+        next_row['datetime'] = forecast_dt
+
+        # Use future weather from the fetched data if available
+        future_wx = hist_df[hist_df['datetime'] == forecast_dt]
+        if not future_wx.empty:
+            for col in WTHR_COLS:
+                next_row[col] = future_wx.iloc[0][col]
+
+        # Pollutants: use rolling mean as best estimate
+        for col in POLL_COLS:
+            next_row[col] = df[col].tail(6).mean()
+
+        df = pd.concat([df, pd.DataFrame([next_row])], ignore_index=True)
+
+    return results
 
 # ─────────────────────────────────────────────────────────────
 # HEADER
@@ -237,15 +276,14 @@ if run_btn:
         st.error(f"Could not fetch data: {err}")
     else:
         X, last_dt = build_forecast_features(hist_df, selected_city)
-        pred_class = int(model.predict(X)[0])
-        pred_proba = model.predict_proba(X)[0]
-        forecast_dt = last_dt + timedelta(hours=6)
+        steps = run_multi_step_forecast(hist_df, selected_city, steps=2, step_hours=6)
 
         st.session_state.city_predictions[selected_city] = {
-            'class':       pred_class,
-            'proba':       pred_proba,
+            'class':       steps[0]['class'],   # t+6h (primary, used for map colour)
+            'proba':       steps[0]['proba'],
             'last_dt':     last_dt,
-            'forecast_dt': forecast_dt,
+            'forecast_dt': steps[0]['forecast_dt'],
+            'steps':       steps,               # full 12h timeline
         }
         st.session_state.city_history[selected_city] = hist_df
 
@@ -317,13 +355,18 @@ with col_detail:
         hist  = st.session_state.city_history[selected_city]
 
         # Forecast timestamp
-        st.markdown(
-            f"<div style='color:#94A3B8;font-size:13px'>"
-            f"📡 Data up to: {pred['last_dt'].strftime('%d %b %Y %H:%M')}  |  "
-            f"🔮 Forecast for: {pred['forecast_dt'].strftime('%d %b %Y %H:%M')}"
-            f"</div>",
-            unsafe_allow_html=True
-        )
+        if 'steps' in pred:
+            st.markdown("### 🕐 12-Hour Forecast Timeline")
+            for s in pred['steps']:
+                b = DAQI_BANDS[s['class']]
+                st.markdown(
+                f'<div style="background:{b["colour"]};color:white;padding:10px;'
+                f'border-radius:8px;margin-bottom:8px;display:flex;justify-content:space-between">'
+                f'<span>+{s["step"]*6}h — {s["forecast_dt"].strftime("%H:%M")}</span>'
+                f'<span><b>{b["label"]}</b> ({max(s["proba"])*100:.0f}% confidence)</span>'
+                f'</div>',
+                unsafe_allow_html=True
+            )
         st.markdown("")
 
         # DAQI badge
