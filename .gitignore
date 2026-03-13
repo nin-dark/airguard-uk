@@ -1,0 +1,13 @@
+# Large data files — not needed for deployment
+models/train_forecast.csv
+models/test_forecast.csv
+data/
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+
+# Environments
+aienv/
+.env
