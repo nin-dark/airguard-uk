@@ -320,7 +320,7 @@ with col_map:
             fill_color=colour,
             fill_opacity=0.85,
             tooltip=f"{info['name']}: {label} {conf}",
-            popup=f"<b>{info['name']}</b><br>6h Forecast: {label}<br>{conf}"
+            popup=f"<b>{info['name']}</b><br>12h Forecast: {label}<br>{conf}"
         ).add_to(m)
 
         folium.Marker(
