@@ -496,7 +496,7 @@ def make_shap_chart(X, pred_class, tier, explainer):
 st.title("🌬️ AirGuard UK")
 st.markdown(
     "**6-Hour & 12-Hour Air Quality Forecast & Health Alert System**  "
-    "|  SDG 11: Sustainable Cities"
+    "|  SDG 13: Climate Action"
 )
 st.markdown("---")
 
@@ -885,7 +885,7 @@ st.markdown(
     "<div style='text-align:center;color:#94A3B8;font-size:13px'>"
     "AirGuard UK  |  Data: DEFRA AURN · Open-Meteo  |  "
     "Model: Dual XGBoost with 150 lag features  |  SHAP Explainability  |  "
-    "SDG 11: Sustainable Cities  |  AI Tool Development Challenge 2026"
+    "SDG 13 : Climate Action  |  AI Tool Development Challenge 2026"
     "</div>",
     unsafe_allow_html=True,
 )
