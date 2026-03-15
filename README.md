@@ -5,9 +5,9 @@
 [![Live App](https://img.shields.io/badge/Live%20App-airguard--uk.streamlit.app-brightgreen)](https://airguard-uk.streamlit.app)
 [![Python](https://img.shields.io/badge/Python-3.11+-blue)](https://python.org)
 [![XGBoost](https://img.shields.io/badge/Model-XGBoost-orange)](https://xgboost.readthedocs.io)
-[![SDG 11](https://img.shields.io/badge/SDG-11%20Sustainable%20Cities-gold)](https://sdgs.un.org/goals/goal11)
+[![SDG 13](https://img.shields.io/badge/SDG-13%20Climate%20Action-gold)](https://sdgs.un.org/goals/goal13)
 
-Built for the **AI Tool Development Challenge 2026** on OneEarth, targeting **SDG 11: Sustainable Cities and Communities**.
+Built for the **AI Tool Development Challenge 2026** on OneEarth, targeting **SDG 13: Climate Action**.
 
 ---
 
@@ -273,11 +273,11 @@ seaborn
 
 ---
 
-## SDG 11 Alignment
+## SDG 13 Alignment
 
-AirGuard UK directly supports **SDG 11.6**: *"Reduce the adverse per capita environmental impact of cities, including by paying special attention to air quality."*
+AirGuard UK directly supports **SDG 13: Climate Action** by addressing one of the most immediate health consequences of climate change — worsening urban air quality. Rising temperatures, increased frequency of heatwaves, and altered wind patterns all intensify ground-level ozone and particulate matter concentrations in cities.
 
-By providing accessible, real-time, explainable air quality forecasts with health-specific advice for vulnerable groups (elderly, children, asthma sufferers), the system enables individuals and public health bodies to take preventative action ahead of pollution events — rather than reacting after the fact.
+By providing accessible, real-time, explainable air quality forecasts with health-specific advice for vulnerable groups (elderly, children, asthma sufferers), the system enables individuals and public health bodies to take preventative action ahead of pollution events — rather than reacting after the fact. The dual 6h/12h horizon gives both immediate and short-range warning, supporting climate adaptation at the individual and community level.
 
 ---
 

@@ -496,7 +496,7 @@ def make_shap_chart(X, pred_class, tier, explainer):
 st.title("🌬️ AirGuard UK")
 st.markdown(
     "**6-Hour & 12-Hour Air Quality Forecast & Health Alert System**  "
-    "|  SDG 13: Climate Action"
+    "|  SDG 13 : Climate Action"
 )
 st.markdown("---")
 
@@ -729,12 +729,12 @@ with tab_map:
                 st.write(advice['children'])
 
             st.markdown("---")
-            st.plotly_chart(make_pollution_chart(hist), use_container_width=True)
+            st.plotly_chart(make_pollution_chart(hist), width='stretch')
 
             st.markdown("---")
             with st.spinner("Computing SHAP explanation..."):
                 shap_fig = make_shap_chart(X_row, cls, tier_key, explainer)
-            st.plotly_chart(shap_fig, use_container_width=True)
+            st.plotly_chart(shap_fig, width='stretch')
             st.caption(
                 f"{tier_info['emoji']} bars = features pushing toward {tier_info['label']}. "
                 "🟢 bars = features pushing toward Low. "
@@ -760,7 +760,7 @@ with tab_map:
                     '40 µg/m³','15 µg/m³','45 µg/m³','100 µg/m³','—',
                     '—','—','—','—',
                 ],
-            }), hide_index=True, use_container_width=True)
+            }), hide_index=True, width='stretch')
 
         else:
             st.markdown(f"### {city_name}")
@@ -831,7 +831,7 @@ with tab_accuracy:
                 'Predicted At','City','Horizon','Forecast For',
                 'Alert Tier','Model Band','Actual','Correct'
             ]
-            st.dataframe(display, hide_index=True, use_container_width=True)
+            st.dataframe(display, hide_index=True, width='stretch')
 
             if len(verified) >= 5:
                 st.markdown("---")
@@ -843,7 +843,7 @@ with tab_accuracy:
                 city_acc.columns = ['City','Accuracy','Forecasts']
                 city_acc['Accuracy'] = (
                     city_acc['Accuracy']*100).round(1).astype(str) + '%'
-                st.dataframe(city_acc, hide_index=True, use_container_width=True)
+                st.dataframe(city_acc, hide_index=True, width='stretch')
 
         else:
             st.info(
@@ -866,7 +866,7 @@ with tab_accuracy:
                 'Predicted At','City','Horizon',
                 'Forecast For','Alert Tier','Model Band'
             ]
-            st.dataframe(pend, hide_index=True, use_container_width=True)
+            st.dataframe(pend, hide_index=True, width='stretch')
 
         st.markdown("---")
         if st.button("🗑️ Clear forecast log"):
