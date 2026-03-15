@@ -1,0 +1,11 @@
+experiment,best_iteration,macro_f1,dangerous_recall,best_threshold,best_macro_f1,best_d_recall,best_d_prec
+6h_iter1_baseline,999,0.404,0.128,0.1,0.387,0.512,0.018
+12h_iter1_baseline,999,0.395,0.096,0.1,0.38,0.432,0.013
+6h_iter2_deep,1999,0.434,0.04,0.1,0.438,0.272,0.041
+12h_iter2_deep,1999,0.42,0.04,0.1,0.419,0.152,0.025
+6h_iter3_smotetomek,1499,0.428,0.08,0.1,0.416,0.312,0.029
+12h_iter3_smotetomek,1499,0.414,0.064,0.1,0.406,0.232,0.02
+6h_iter4_high_reg,1999,0.419,0.072,0.1,0.41,0.368,0.026
+12h_iter4_high_reg,1999,0.416,0.072,0.1,0.405,0.272,0.017
+6h_iter5_targeted,2997,0.449,0.024,0.04,0.449,0.192,0.034
+12h_iter5_targeted,1191,0.396,0.112,0.04,0.37,0.544,0.01
